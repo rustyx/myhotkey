@@ -36,6 +36,13 @@ CA	O	-	-	rundll32 shell32.dll,Control_RunDLL sysdm.cpl
 
 The application can be build with Visual Studio 2015 or later or with Mingw32 using the provided build script.
 
+### Installation
+
+* Build or [download](https://github.com/rustyx/myhotkey/releases) the executable
+* Unzip the application somewhere
+* Add a shortcut to `myhotkey.exe` in the Startup folder (Start -> Run, type `shell:startup`)
+* Execute the shortcut
+
 ### Known issues
 
 The main window of UWP apps like the calculator cannot be detected, which results in a new instance being started for every hotkey press.
