@@ -72,9 +72,10 @@ void start(CONFIG_ENTRY *cfg)
             EnumWindows(EnumWndProc, (LPARAM)cfg);
             if (cfg->hwnd) {
                 BringWindowToTop(cfg->hwnd);
-                if (!SetForegroundWindow(cfg->hwnd))
-                    syserr(L"SetForegroundWindow");
-                return;
+                if (SetForegroundWindow(cfg->hwnd)) {
+                    return;
+                }
+                cfg->pid = 0;
             }
         }
         else {
