@@ -67,12 +67,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "rustyx.org"
             VALUE "FileDescription", "MyHotkey"
-            VALUE "FileVersion", "1.0.0.2"
+            VALUE "FileVersion", "1.0.0.3"
             VALUE "InternalName", "myhotkey.rc"
-            VALUE "LegalCopyright", "Copyright (C) 2019 me@rustyx.org"
+            VALUE "LegalCopyright", "Copyright (C) 2019 me@rustyx.org, killwort@gmail.com"
             VALUE "OriginalFilename", "myhotkey.rc"
             VALUE "ProductName", "myhotkey"
-            VALUE "ProductVersion", "1.0.0.2"
+            VALUE "ProductVersion", "1.0.0.3"
         END
     END
     BLOCK "VarFileInfo"

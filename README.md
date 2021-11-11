@@ -25,11 +25,15 @@ The config file looks like this:
 # Notes:
 # * no spaces to separate columns, use the TAB character,
 # * use '-' to skip a column, '#' to skip a line
+# * Hotkey might be defined as a normal character (0-9a-z) or as virtual 
+#   key code - start it with ~ and put decimal code afterwards, e.g. ~112 means VK_F1
+#   see https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 #
 CA	C	calc
 CA	Z	cmd	%USERPROFILE%
 CA	D	bash	%USERPROFILE%
 CA	O	-	-	rundll32 shell32.dll,Control_RunDLL sysdm.cpl
+CS	~112	iexplore
 ```
 
 ### Building
@@ -38,7 +42,7 @@ The application can be build with Visual Studio 2015 or later or with Mingw32 us
 
 ### Installation
 
-* Build or [download](https://github.com/rustyx/myhotkey/releases) the executable
+* Build or [download](https://github.com/killwort/myhotkey/releases) the executable
 * Unzip the application somewhere
 * Add a shortcut to `myhotkey.exe` in the Startup folder (Start -> Run, type `shell:startup`)
 * Execute the shortcut
