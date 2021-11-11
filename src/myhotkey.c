@@ -18,7 +18,7 @@
 static DWORD FLAG_ALLOW_DUPS = 1;
 
 typedef struct configEntry {
-    char hotkey;
+    UINT hotkey;
     UINT modifiers;
     LPWSTR exename;
     LPWSTR params;
@@ -202,6 +202,18 @@ CONFIG_ENTRY* loadConfig(LPCWSTR cfgfile)
         }
         i++;
         cur.hotkey = toupper((char)wbuf[i]);
+        if (cur.hotkey == '~') {
+            cur.hotkey = 0;
+            i++;
+            for (; wbuf[i] != L'\t' && wbuf[i]; i++) {
+                if ((wbuf[i] - 0x30) < 0 || (wbuf[i] - 0x30) > 9) {
+                    cur.hotkey = 0;
+                    break;
+                }
+                cur.hotkey *= 10;
+                cur.hotkey += (wbuf[i] - 0x30);
+            }
+        }
         if (!cur.modifiers || cur.hotkey < 32)
             continue;
         for (; wbuf[i] != '\t' && wbuf[i]; i++)
