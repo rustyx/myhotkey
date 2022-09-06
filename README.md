@@ -20,7 +20,8 @@ The config file looks like this:
 #
 # Format:
 # Modifiers [TAB] Hotkey [TAB] Executable [TAB] Work Dir [TAB] Params
-# Where Modifiers = letters C,A,S,W corresponding to Ctrl, Alt, Shift, Win
+# Where Modifiers = letters C,A,S,W corresponding to Ctrl, Alt, Shift, Win.
+# A special modifier "+" can be used to allow multiple application instances.
 #
 # Notes:
 # * no spaces to separate columns, use the TAB character,

@@ -15,6 +15,8 @@
 #  define ERROR_ELEVATION_REQUIRED 740
 #endif
 
+static DWORD FLAG_ALLOW_DUPS = 1;
+
 typedef struct configEntry {
     char hotkey;
     UINT modifiers;
@@ -24,6 +26,7 @@ typedef struct configEntry {
     DWORD status;
     DWORD pid;
     HWND hwnd;
+    DWORD flags;
     struct configEntry *prev;
     struct configEntry *next;
 } CONFIG_ENTRY;
@@ -65,7 +68,7 @@ void start(CONFIG_ENTRY *cfg)
     PROCESS_INFORMATION pi;
     ZeroMemory(&si, sizeof(si));
     si.cb = sizeof(si);
-    if (cfg->pid) {
+    if (cfg->pid && (cfg->flags & FLAG_ALLOW_DUPS) == 0) {
         HANDLE hProcess = OpenProcess(SYNCHRONIZE, FALSE, cfg->pid);
         if (hProcess) {
             CloseHandle(hProcess);
@@ -183,12 +186,14 @@ CONFIG_ENTRY* loadConfig(LPCWSTR cfgfile)
             continue;
 
         cur.modifiers = 0;
+        cur.flags = 0;
         for (; wbuf[i] != L'\t' && wbuf[i]; i++) {
             switch (towupper(wbuf[i])) {
             case L'C': cur.modifiers |= MOD_CONTROL; break;
             case L'A': cur.modifiers |= MOD_ALT; break;
             case L'S': cur.modifiers |= MOD_SHIFT; break;
             case L'W': cur.modifiers |= MOD_WIN; break;
+            case L'+': cur.flags |= FLAG_ALLOW_DUPS; break;
             default:
                 if (errors++ == 0)
                     syserr(L"Unknown modifier '%c' on line %ld", wbuf[i], line);
@@ -232,6 +237,7 @@ CONFIG_ENTRY* loadConfig(LPCWSTR cfgfile)
         entry->exename = searchPath(expandStr(cur.exename), path);
         entry->params = expandStr(cur.params);
         entry->workdir = expandStr(cur.workdir);
+        entry->flags = cur.flags;
         entry->prev = prev;
         if (prev)
             prev->next = entry;
