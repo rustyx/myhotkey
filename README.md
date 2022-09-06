@@ -26,11 +26,15 @@ The config file looks like this:
 # Notes:
 # * no spaces to separate columns, use the TAB character,
 # * use '-' to skip a column, '#' to skip a line
+# * Hotkey can be defined as a normal character (0-9A-Z) or as a virtual key code -
+#   prefix it with a tilde followed by the decimal key code, e.g. ~112 means VK_F1.
+#   See https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 #
 CA	C	calc
 CA	Z	cmd	%USERPROFILE%
 CA	D	bash	%USERPROFILE%
 CA	O	-	-	rundll32 shell32.dll,Control_RunDLL sysdm.cpl
+CS	~112    -	msedge
 ```
 
 ### Building
